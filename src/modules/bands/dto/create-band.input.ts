@@ -57,22 +57,30 @@ export class CreateBandInput {
 // }
 
 // query {
-//   bands {
-//     id
-//     name
-//     origin
-//     members {
-//       artist
-//       instrument
-//       years
-//     }
-//     website
-//     genres {
+//   bands(paginatedInput: {
+//     limit: 1
+//     offset: 0
+//   }) {
+//     limit
+//     offset
+//     total
+//     items {
 //       id
 //       name
-//       description
-//       country
-//       year
+//       origin
+//       members {
+//         artist
+//         instrument
+//         years
+//       }
+//       website
+//       genres {
+//         id
+//         name
+//         description
+//         country
+//         year
+//       }
 //     }
 //   }
 // }

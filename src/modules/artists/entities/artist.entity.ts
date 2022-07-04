@@ -1,4 +1,4 @@
-import { ObjectType, Field, ID } from '@nestjs/graphql';
+import { ObjectType, Field, ID, Int } from '@nestjs/graphql';
 import { Band } from '../../bands/entities/band.entity';
 
 @ObjectType()
@@ -21,4 +21,16 @@ export class Artist {
   bands: Band[];
   @Field()
   instruments: string;
+}
+
+@ObjectType()
+export class PaginatedArtistResponse {
+  @Field(() => [Artist])
+  items: Artist[];
+  @Field(() => Int)
+  offset: number;
+  @Field(() => Int)
+  limit: number;
+  @Field(() => Int)
+  total: number;
 }

@@ -10,6 +10,13 @@ type Genre {
   year: Float!
 }
 
+type PaginatedGenreResponse {
+  items: [Genre!]!
+  offset: Int!
+  limit: Int!
+  total: Int!
+}
+
 type Member {
   artist: String!
   instrument: String!
@@ -23,6 +30,13 @@ type Band {
   members: [Member!]!
   website: String!
   genres: [Genre!]!
+}
+
+type PaginatedBandResponse {
+  items: [Band!]!
+  offset: Int!
+  limit: Int!
+  total: Int!
 }
 
 type Result {
@@ -42,6 +56,13 @@ type Artist {
   instruments: String!
 }
 
+type PaginatedArtistResponse {
+  items: [Artist!]!
+  offset: Int!
+  limit: Int!
+  total: Int!
+}
+
 type Album {
   id: ID!
   name: String!
@@ -53,6 +74,13 @@ type Album {
   image: String
 }
 
+type PaginatedAlbumResponse {
+  items: [Album!]!
+  offset: Int!
+  limit: Int!
+  total: Int!
+}
+
 type Track {
   id: ID!
   title: String!
@@ -61,6 +89,13 @@ type Track {
   duration: Float!
   released: Float!
   genres: [Genre!]!
+}
+
+type PaginatedTrackResponse {
+  items: [Track!]!
+  offset: Int!
+  limit: Int!
+  total: Int!
 }
 
 type Favourites {
@@ -91,19 +126,24 @@ input MemberDto {
 }
 
 type Query {
-  bands: [Band!]!
+  bands(paginatedInput: PaginatedInput!): PaginatedBandResponse!
   band(id: String!): Band!
-  genres: [Genre!]!
+  genres(paginatedInput: PaginatedInput!): PaginatedGenreResponse!
   genre(id: String!): Genre!
-  artists: [Artist!]!
+  artists(paginatedInput: PaginatedInput!): PaginatedArtistResponse!
   artist(id: String!): Artist!
-  tracks: [Track!]!
+  tracks(paginatedInput: PaginatedInput!): PaginatedTrackResponse!
   track(id: String!): Track!
-  albums: [Album!]!
+  albums(paginatedInput: PaginatedInput!): PaginatedAlbumResponse!
   album(id: String!): Album!
   favourites: Favourites!
   jwt(loginUserInput: LoginUserInput!): Jwt!
   user(id: String!): User!
+}
+
+input PaginatedInput {
+  offset: Int!
+  limit: Int!
 }
 
 input LoginUserInput {

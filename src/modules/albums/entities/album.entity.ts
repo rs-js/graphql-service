@@ -23,3 +23,15 @@ export class Album {
   @Field({ nullable: true })
   image: string;
 }
+
+@ObjectType()
+export class PaginatedAlbumResponse {
+  @Field(() => [Album])
+  items: Album[];
+  @Field(() => Int)
+  offset: number;
+  @Field(() => Int)
+  limit: number;
+  @Field(() => Int)
+  total: number;
+}

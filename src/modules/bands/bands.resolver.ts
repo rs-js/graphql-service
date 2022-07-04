@@ -7,12 +7,13 @@ import {
   Parent,
 } from '@nestjs/graphql';
 import { BandsService } from './bands.service';
-import { Band } from './entities/band.entity';
+import { Band, PaginatedBandResponse } from './entities/band.entity';
 import { CreateBandInput } from './dto/create-band.input';
 import { UpdateBandInput } from './dto/update-band.input';
 import { Result } from '../../common/entities/result.entity';
 import { Genre } from '../genres/entities/genre.entity';
 import { GenresService } from '../genres/genres.service';
+import { PaginatedInput } from '../../common/dto/paginated.input';
 
 @Resolver(() => Band)
 export class BandsResolver {
@@ -26,13 +27,13 @@ export class BandsResolver {
     return this.bandsService.create(createBandInput);
   }
 
-  @Query(() => [Band], { name: 'bands' })
-  findAll() {
-    return this.bandsService.findAll();
+  @Query(() => PaginatedBandResponse)
+  bands(@Args('paginatedInput') paginatedInput: PaginatedInput) {
+    return this.bandsService.findAll(paginatedInput);
   }
 
-  @Query(() => Band, { name: 'band' })
-  findOne(@Args('id', { type: () => String }) id: string) {
+  @Query(() => Band)
+  band(@Args('id', { type: () => String }) id: string) {
     return this.bandsService.findOne(id);
   }
 

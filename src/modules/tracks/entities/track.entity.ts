@@ -1,4 +1,4 @@
-import { ObjectType, Field, ID } from '@nestjs/graphql';
+import { ObjectType, Field, ID, Int } from '@nestjs/graphql';
 import { Album } from '../../albums/entities/album.entity';
 import { Band } from '../../bands/entities/band.entity';
 import { Genre } from '../../genres/entities/genre.entity';
@@ -21,4 +21,16 @@ export class Track {
   released: number;
   @Field(() => [Genre])
   genres: Genre[];
+}
+
+@ObjectType()
+export class PaginatedTrackResponse {
+  @Field(() => [Track])
+  items: Track[];
+  @Field(() => Int)
+  offset: number;
+  @Field(() => Int)
+  limit: number;
+  @Field(() => Int)
+  total: number;
 }

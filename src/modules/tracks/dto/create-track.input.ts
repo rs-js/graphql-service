@@ -68,22 +68,30 @@ export class CreateTrackInput {
 // }
 
 // query {
-//   tracks {
-//     id
-//     title
-//     albums {
+//   tracks(paginatedInput: {
+//     limit: 1
+//     offset: 0
+//   }) {
+//     limit
+//     offset
+//     total
+//     items {
 //       id
-//     }
-//     bands {
-//       name
+//       title
+//       albums {
+//         id
+//       }
+//       bands {
+//         name
+//         genres {
+//           name
+//         }
+//       }
+//       duration
+//       released
 //       genres {
 //         name
 //       }
-//     }
-//     duration
-//     released
-//     genres {
-//       name
 //     }
 //   }
 // }

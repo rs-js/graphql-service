@@ -7,12 +7,13 @@ import {
   Parent,
 } from '@nestjs/graphql';
 import { ArtistsService } from './artists.service';
-import { Artist } from './entities/artist.entity';
+import { Artist, PaginatedArtistResponse } from './entities/artist.entity';
 import { CreateArtistInput } from './dto/create-artist.input';
 import { UpdateArtistInput } from './dto/update-artist.input';
 import { Result } from '../../common/entities/result.entity';
 import { Band } from '../bands/entities/band.entity';
 import { BandsService } from '../bands/bands.service';
+import { PaginatedInput } from '../../common/dto/paginated.input';
 
 @Resolver(() => Artist)
 export class ArtistsResolver {
@@ -28,9 +29,9 @@ export class ArtistsResolver {
     return this.artistsService.create(createArtistInput);
   }
 
-  @Query(() => [Artist])
-  artists() {
-    return this.artistsService.findAll();
+  @Query(() => PaginatedArtistResponse)
+  artists(@Args('paginatedInput') paginatedInput: PaginatedInput) {
+    return this.artistsService.findAll(paginatedInput);
   }
 
   @Query(() => Artist)

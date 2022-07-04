@@ -83,33 +83,41 @@ export class CreateArtistInput {
 // }
 
 // query {
-//   artists {
-//     id
-//     firstName
-//     secondName
-//     middleName
-//     birthDate
-//     birthPlace
-//     country
-//     bands {
+//   artists(paginatedInput: {
+//     limit: 5
+//     offset: 0
+//   }) {
+//     limit
+//     offset
+//     total
+//     items {
 //       id
-//       name
-//       origin
-//       members {
-//         artist
-//         instrument
-//         years
-//       }
-//       website
-//       genres {
+//       firstName
+//       secondName
+//       middleName
+//       birthDate
+//       birthPlace
+//       country
+//       bands {
 //         id
 //         name
-//         description
-//         country
-//         year
+//         origin
+//         members {
+//           artist
+//           instrument
+//           years
+//         }
+//         website
+//         genres {
+//           id
+//           name
+//           description
+//           country
+//           year
+//         }
 //       }
+//       instruments
 //     }
-//     instruments
 //   }
 // }
 

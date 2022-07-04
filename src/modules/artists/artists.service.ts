@@ -3,6 +3,7 @@ import { CreateArtistInput } from './dto/create-artist.input';
 import { UpdateArtistInput } from './dto/update-artist.input';
 import { HttpService } from '@nestjs/axios';
 import { forkJoin, map } from 'rxjs';
+import { PaginatedInput } from '../../common/dto/paginated.input';
 
 @Injectable()
 export class ArtistsService {
@@ -16,14 +17,13 @@ export class ArtistsService {
       .pipe(map(({ data }) => ({ ...data, id: data._id })));
   }
 
-  findAll() {
-    return this.httpService
-      .get(this.baseUrl)
-      .pipe(
-        map(({ data: { items } }) =>
-          items.map((item) => ({ ...item, id: item._id })),
-        ),
-      );
+  findAll(params: PaginatedInput) {
+    return this.httpService.get(this.baseUrl, { params }).pipe(
+      map(({ data }) => ({
+        ...data,
+        items: data.items.map((item) => ({ ...item, id: item._id })),
+      })),
+    );
   }
 
   findOne(id: string) {

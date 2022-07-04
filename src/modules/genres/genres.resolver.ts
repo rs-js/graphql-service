@@ -1,9 +1,10 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { GenresService } from './genres.service';
-import { Genre } from './entities/genre.entity';
+import { Genre, PaginatedGenreResponse } from './entities/genre.entity';
 import { CreateGenreInput } from './dto/create-genre.input';
 import { UpdateGenreInput } from './dto/update-genre.input';
 import { Result } from '../../common/entities/result.entity';
+import { PaginatedInput } from '../../common/dto/paginated.input';
 
 @Resolver(() => Genre)
 export class GenresResolver {
@@ -14,9 +15,9 @@ export class GenresResolver {
     return this.genresService.create(createGenreInput);
   }
 
-  @Query(() => [Genre])
-  genres() {
-    return this.genresService.findAll();
+  @Query(() => PaginatedGenreResponse)
+  genres(@Args('paginatedInput') paginatedInput: PaginatedInput) {
+    return this.genresService.findAll(paginatedInput);
   }
 
   @Query(() => Genre)

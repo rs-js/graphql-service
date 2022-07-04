@@ -1,4 +1,4 @@
-import { ObjectType, Field, ID, InputType } from '@nestjs/graphql';
+import { ObjectType, Field, ID, InputType, Int } from '@nestjs/graphql';
 import { Genre } from '../../genres/entities/genre.entity';
 import { IsArray, IsString } from 'class-validator';
 
@@ -30,4 +30,16 @@ export class Band {
   website: string;
   @Field(() => [Genre])
   genres: Genre[];
+}
+
+@ObjectType()
+export class PaginatedBandResponse {
+  @Field(() => [Band])
+  items: Band[];
+  @Field(() => Int)
+  offset: number;
+  @Field(() => Int)
+  limit: number;
+  @Field(() => Int)
+  total: number;
 }

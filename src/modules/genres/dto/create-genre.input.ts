@@ -49,11 +49,19 @@ export class CreateGenreInput {
 // }
 
 // query {
-//   genres {
-//     id
-//     name
-//     description
-//     country
-//     year
+//   genres(paginatedInput: {
+//     limit: 2
+//     offset: 0
+//   }) {
+//     limit
+//     offset
+//     total
+//     items {
+//       id
+//       name
+//       description
+//       country
+//       year
+//     }
 //   }
 // }

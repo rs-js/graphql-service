@@ -7,7 +7,7 @@ import {
   Parent,
 } from '@nestjs/graphql';
 import { TracksService } from './tracks.service';
-import { Track } from './entities/track.entity';
+import { PaginatedTrackResponse, Track } from './entities/track.entity';
 import { CreateTrackInput } from './dto/create-track.input';
 import { UpdateTrackInput } from './dto/update-track.input';
 import { Band } from '../bands/entities/band.entity';
@@ -17,6 +17,7 @@ import { GenresService } from '../genres/genres.service';
 import { AlbumsService } from '../albums/albums.service';
 import { Album } from '../albums/entities/album.entity';
 import { Result } from '../../common/entities/result.entity';
+import { PaginatedInput } from '../../common/dto/paginated.input';
 
 @Resolver(() => Track)
 export class TracksResolver {
@@ -32,13 +33,13 @@ export class TracksResolver {
     return this.tracksService.create(createTrackInput);
   }
 
-  @Query(() => [Track], { name: 'tracks' })
-  findAll() {
-    return this.tracksService.findAll();
+  @Query(() => PaginatedTrackResponse)
+  tracks(@Args('paginatedInput') paginatedInput: PaginatedInput) {
+    return this.tracksService.findAll(paginatedInput);
   }
 
-  @Query(() => Track, { name: 'track' })
-  findOne(@Args('id', { type: () => String }) id: string) {
+  @Query(() => Track)
+  track(@Args('id', { type: () => String }) id: string) {
     return this.tracksService.findOne(id);
   }
 

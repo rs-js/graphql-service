@@ -7,7 +7,7 @@ import {
   Parent,
 } from '@nestjs/graphql';
 import { AlbumsService } from './albums.service';
-import { Album } from './entities/album.entity';
+import { Album, PaginatedAlbumResponse } from './entities/album.entity';
 import { CreateAlbumInput } from './dto/create-album.input';
 import { UpdateAlbumInput } from './dto/update-album.input';
 import { ArtistsService } from '../artists/artists.service';
@@ -19,6 +19,7 @@ import { Track } from '../tracks/entities/track.entity';
 import { Band } from '../bands/entities/band.entity';
 import { Artist } from '../artists/entities/artist.entity';
 import { Result } from '../../common/entities/result.entity';
+import { PaginatedInput } from '../../common/dto/paginated.input';
 
 @Resolver(() => Album)
 export class AlbumsResolver {
@@ -35,13 +36,13 @@ export class AlbumsResolver {
     return this.albumsService.create(createAlbumInput);
   }
 
-  @Query(() => [Album], { name: 'albums' })
-  findAll() {
-    return this.albumsService.findAll();
+  @Query(() => PaginatedAlbumResponse)
+  albums(@Args('paginatedInput') paginatedInput: PaginatedInput) {
+    return this.albumsService.findAll(paginatedInput);
   }
 
-  @Query(() => Album, { name: 'album' })
-  findOne(@Args('id', { type: () => String }) id: string) {
+  @Query(() => Album)
+  album(@Args('id', { type: () => String }) id: string) {
     return this.albumsService.findOne(id);
   }
 
